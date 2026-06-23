@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, notFound } from "next/navigation";
+import Loading from "@/app/loading";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
@@ -78,14 +79,10 @@ const BlogImageGallery = ({ blog }: { blog: Blog }): React.JSX.Element => {
 
 const BlogDetailPage = ({ slug }: BlogDetailPageProps): React.JSX.Element => {
   const router = useRouter();
-  const [mounted, setMounted] = useState<boolean>(false);
   const [successOpen, setSuccessOpen] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { data: blog, isLoading, isError } = useBlogDetail(slug);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  console.log("blog:", blog, isLoading)
 
   const {
     register,
@@ -127,25 +124,13 @@ const BlogDetailPage = ({ slug }: BlogDetailPageProps): React.JSX.Element => {
     }
   };
 
-  if (!mounted || isLoading) {
-    return (
-      <div className="flex justify-center items-center py-20">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-900"></div>
-      </div>
-    );
+  if (isLoading) {
+    return <Loading />;
   }
 
   if (isError || !blog) {
-    return (
-      <Container maxWidth="md" sx={{ py: 10, textAlign: "center" }}>
-        <Typography variant="h5" color="error" gutterBottom>
-          ไม่พบบทความบล็อกที่คุณต้องการ
-        </Typography>
-        <Button startIcon={<ArrowBackIcon />} onClick={() => router.push("/")} sx={{ mt: 2 }}>
-          กลับไปหน้าแรก
-        </Button>
-      </Container>
-    );
+    notFound();
+    return <></>;
   }
 
   return (

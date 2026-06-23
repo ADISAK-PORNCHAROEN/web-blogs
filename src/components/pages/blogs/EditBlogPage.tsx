@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, notFound } from "next/navigation";
+import Loading from "@/app/loading";
 import { Alert, Box } from "@mui/material";
 import BlogForm from "@/components/admin/BlogForm";
 import { getApiErrorMessage } from "@/lib/apiError";
@@ -36,21 +37,12 @@ const EditBlogPage = ({ id }: EditBlogPageProps): React.JSX.Element => {
   };
 
   if (!mounted || isLoading) {
-    return (
-      <div className="flex justify-center items-center py-20">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-900"></div>
-      </div>
-    );
+    return <Loading />;
   }
 
   if (isError || !blog) {
-    return (
-      <Box sx={{ py: 6, textAlign: "center" }}>
-        <Alert severity="error" sx={{ maxWidth: 520, mx: "auto" }}>
-          ไม่พบบล็อกด้วยรหัสนี้ หรือเกิดข้อผิดพลาดในการเชื่อมต่อ
-        </Alert>
-      </Box>
-    );
+    notFound();
+    return <></>;
   }
 
   return (

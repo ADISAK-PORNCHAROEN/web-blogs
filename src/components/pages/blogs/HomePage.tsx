@@ -18,9 +18,11 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
+import { notFound } from "next/navigation";
 import SearchIcon from "@mui/icons-material/Search";
 import { useBlogList } from "@/hooks/blogs/useBlogQueries";
 import { createExcerpt } from "@/lib/content";
+import Loading from "@/app/loading";
 
 const HomePage = (): React.JSX.Element => {
   const router = useRouter();
@@ -61,6 +63,10 @@ const HomePage = (): React.JSX.Element => {
       return dateStr;
     }
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
@@ -126,11 +132,7 @@ const HomePage = (): React.JSX.Element => {
       </Box>
 
       <Container maxWidth="lg" sx={{ py: 6, flexGrow: 1 }}>
-        {isLoading ? (
-          <Box sx={{ display: "flex", justifyContent: "center", py: 10 }}>
-            <CircularProgress color="secondary" />
-          </Box>
-        ) : isError ? (
+        {isError ? (
           <Box sx={{ textAlign: "center", py: 8 }}>
             <Typography variant="h6" color="error">
               เกิดข้อผิดพลาดในการดึงข้อมูลบล็อก กรุณาลองใหม่อีกครั้ง
@@ -145,7 +147,7 @@ const HomePage = (): React.JSX.Element => {
         ) : (
           <>
             <Grid container spacing={4}>
-              {data.data.map((blog) => (
+              {data?.data?.map((blog) => (
                 <Grid key={blog.id} size={{ xs: 12 }}>
                   <Card
                     onClick={() => router.push(`/blogs/${blog.slug}`)}
@@ -225,9 +227,9 @@ const HomePage = (): React.JSX.Element => {
               ))}
             </Grid>
 
-            {data.lastPage > 1 ? (
+            {(data?.lastPage ?? 0) > 1 ? (
               <Box sx={{ display: "flex", justifyContent: "center", mt: 6 }}>
-                <Pagination count={data.lastPage} page={page} onChange={handlePageChange} color="secondary" size="large" />
+                <Pagination count={data?.lastPage ?? 1} page={page} onChange={handlePageChange} color="secondary" size="large" />
               </Box>
             ) : null}
           </>
