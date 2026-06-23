@@ -8,9 +8,9 @@ services:
     ports:
       - "3003:3000"
 
-    # ดึง Environment Variables ทั้งหมดจากไฟล์ .env.prod ที่มีอยู่แล้วบนเครื่องเซิร์ฟเวอร์
+    # ดึง Environment Variables ทั้งหมดจากไฟล์ .env (Portainer จะสร้างไฟล์ .env นี้ให้อัตโนมัติจาก GUI)
     env_file:
-      - .env.prod
+      - .env
 
     environment:
       - PORT=3000
