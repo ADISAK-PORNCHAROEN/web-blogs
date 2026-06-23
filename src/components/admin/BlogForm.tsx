@@ -127,8 +127,17 @@ const BlogForm = ({
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 4 }}>
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        overflow: { xs: "auto", lg: "hidden" },
+        pr: { xs: 1, lg: 0 },
+      }}
+    >
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 3, flexShrink: 0 }}>
         <IconButton onClick={() => router.push("/admin")} sx={{ flexShrink: 0 }}>
           <ArrowBackIcon />
         </IconButton>
@@ -143,13 +152,13 @@ const BlogForm = ({
       </Box>
 
       {errorMessage ? (
-        <Alert severity="error" sx={{ mb: 4 }}>
+        <Alert severity="error" sx={{ mb: 3, flexShrink: 0 }}>
           {errorMessage}
         </Alert>
       ) : null}
 
       {uploadErrorMessage ? (
-        <Alert severity="error" sx={{ mb: 4 }}>
+        <Alert severity="error" sx={{ mb: 3, flexShrink: 0 }}>
           {uploadErrorMessage}
         </Alert>
       ) : null}
@@ -158,7 +167,9 @@ const BlogForm = ({
         sx={{
           display: "grid",
           gap: 4,
-          alignItems: "start",
+          flexGrow: { lg: 1 },
+          minHeight: { lg: 0 },
+          height: { xs: "auto", lg: "100%" },
           gridTemplateColumns: { xs: "1fr", lg: "minmax(0, 1.4fr) minmax(320px, 0.9fr)" },
         }}
       >
@@ -170,6 +181,9 @@ const BlogForm = ({
             p: { xs: 2, md: 3 },
             borderRadius: 3,
             bgcolor: "background.paper",
+            height: { xs: "auto", lg: "100%" },
+            overflowY: { xs: "visible", lg: "auto" },
+            pr: { lg: 1 },
           }}
         >
           <Stack spacing={3}>
@@ -322,9 +336,9 @@ const BlogForm = ({
           sx={{
             p: { xs: 2, md: 3 },
             borderRadius: 3,
-            position: { lg: "sticky" },
-            top: { lg: 24 },
-            overflow: "hidden",
+            height: { xs: "auto", lg: "100%" },
+            overflowY: { xs: "visible", lg: "auto" },
+            pr: { lg: 1 },
           }}
         >
           <Stack spacing={2}>
