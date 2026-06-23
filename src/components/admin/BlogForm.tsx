@@ -373,38 +373,68 @@ const BlogForm = ({
             </Box>
 
             {activeTab === 0 ? (
-              <Card sx={{ display: "flex", flexDirection: "column", borderRadius: 3, border: 1, borderColor: "divider", boxShadow: "none" }}>
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={watchedCoverImage || "https://images.unsplash.com/photo-1618401471353-b98aedd07871?w=800"}
-                  alt={watchedTitle || "ตัวอย่างรูปปก"}
-                  sx={{ objectFit: "cover", height: 200 }}
-                />
-                <CardContent sx={{ flexGrow: 1, p: 2 }}>
-                  <Box sx={{ display: "flex", gap: 2, mb: 1.5, color: "text.secondary" }}>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                      <CalendarTodayIcon sx={{ fontSize: "0.875rem" }} />
-                      <Typography variant="caption">23 มิ.ย. 2026</Typography>
-                    </Box>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                      <VisibilityIcon sx={{ fontSize: "0.875rem" }} />
-                      <Typography variant="caption">0 วิว</Typography>
-                    </Box>
+              <Card
+                sx={{
+                  display: "flex",
+                  flexDirection: { xs: "column", sm: "row" },
+                  height: { xs: "auto", sm: 180 },
+                  borderRadius: 3,
+                  border: 1,
+                  borderColor: "divider",
+                  boxShadow: "none",
+                  overflow: "hidden",
+                }}
+              >
+                <Box
+                  sx={{
+                    width: { xs: "100%", sm: 200 },
+                    height: { xs: 150, sm: "100%" },
+                    position: "relative",
+                    flexShrink: 0,
+                  }}
+                >
+                  <CardMedia
+                    component="img"
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                    image={watchedCoverImage || "https://images.unsplash.com/photo-1618401471353-b98aedd07871?w=800"}
+                    alt={watchedTitle || "ตัวอย่างรูปปก"}
+                  />
+                </Box>
+                <CardContent
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    flexGrow: 1,
+                    p: 2,
+                    overflow: "hidden",
+                  }}
+                >
+                  <Box sx={{ display: "flex", gap: 1.5, mb: 1, color: "text.secondary" }}>
+                    <Typography variant="caption" sx={{ fontWeight: 600 }}>
+                      23 มิถุนายน 2569
+                    </Typography>
+                    <Typography variant="caption" sx={{ fontWeight: 600 }}>
+                      &bull;&nbsp;&nbsp;0 วิว
+                    </Typography>
                   </Box>
                   <Typography
                     gutterBottom
                     variant="h6"
                     component="h2"
                     sx={{
-                      fontWeight: 700,
+                      fontWeight: 800,
                       lineHeight: 1.3,
-                      height: "2.6em",
-                      overflow: "hidden",
+                      color: "text.primary",
                       display: "-webkit-box",
                       WebkitLineClamp: 2,
                       WebkitBoxOrient: "vertical",
-                      color: "text.primary"
+                      overflow: "hidden",
+                      mb: 1,
                     }}
                   >
                     {watchedTitle || "หัวข้อบล็อกของคุณจะอยู่ตรงนี้"}
@@ -413,21 +443,16 @@ const BlogForm = ({
                     variant="body2"
                     color="text.secondary"
                     sx={{
-                      height: "4.5em",
-                      overflow: "hidden",
+                      lineHeight: 1.5,
                       display: "-webkit-box",
-                      WebkitLineClamp: 3,
+                      WebkitLineClamp: 2,
                       WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
                     }}
                   >
-                    {createExcerpt(watchedContent || "เริ่มพิมพ์เนื้อหาเพื่อดูตัวอย่างคำโปรย...")}
+                    &ldquo;{createExcerpt(watchedContent || "เริ่มพิมพ์เนื้อหาเพื่อดูตัวอย่างคำโปรย...")}&rdquo;
                   </Typography>
                 </CardContent>
-                <CardActions sx={{ px: 2, pb: 2, pt: 0 }}>
-                  <Button size="small" color="secondary" variant="contained" fullWidth sx={{ borderRadius: 2, fontWeight: 700 }}>
-                    อ่านเพิ่มเติม
-                  </Button>
-                </CardActions>
               </Card>
             ) : (
               <Box
